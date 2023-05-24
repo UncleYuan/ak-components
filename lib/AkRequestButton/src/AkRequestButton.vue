@@ -1,6 +1,6 @@
 <script>
 import isArray from 'lodash/isArray';
-import Button from 'element-ui/packages/button/src/button.vue';
+import {Button} from 'element-ui';
 // 新增阿康请求按钮列表
 export default {
   name: 'AkRequestButton',

@@ -14,7 +14,7 @@ module.exports = {
     path: path.resolve(__dirname, "./libdist"),
     publicPath: "./",
     libraryExport: "default", // 对外暴露default属性，就可以直接调用default里的属性
-    library: "QuickVueComponents", // // 指定类库名,主要用于直接引用的方式(比如使用script 标签)
+    library: "AkVueComponents", // // 指定类库名,主要用于直接引用的方式(比如使用script 标签)
     libraryTarget: "umd", // 定义打包方式
     globalObject: "this",
     umdNamedDefine: true,
