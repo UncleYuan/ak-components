@@ -3,7 +3,7 @@ import Vue from 'vue';
 import 'normalize.css/normalize.css'; // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui';
-import AkComponents from 'ak-components';
+import AkComponents from 'ak-vue-components';
 import "@/styles/element-variables.scss";
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 

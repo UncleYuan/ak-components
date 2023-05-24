@@ -24,7 +24,7 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
   publicPath: "/",
-  // transpileDependencies: ['ak-components'],
+  // transpileDependencies: ['ak-vue-components'],
   outputDir: "dist",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",
@@ -48,7 +48,7 @@ module.exports = {
 
     resolve: {
       alias: {
-        "ak-components": path.resolve("lib"),
+        "ak-vue-components": path.resolve("lib"),
         "@": resolve("src")
       }
     }

@@ -1,5 +1,5 @@
 {
-  "name": "ak-components",
+  "name": "ak-vue-components",
   "version": "1.0.0",
   "description": "a vue  component frame",
   "scripts": {
@@ -65,10 +65,7 @@
   "author": "UncleYuan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UncleYuan/ak-components/issues"
+    "url": "https://github.com/UncleYuan/ak-vue-components/issues"
   },
-  "homepage": "https://github.com/UncleYuan/ak-components#readme",
-  "__npminstall_done": "Tue Dec 01 2020 22:28:39 GMT+0800 (GMT+08:00)",
-  "_from": "ak-components@1.1.2",
-  "_resolved": "https://registry.npm.taobao.org/ak-components/download/ak-components-1.1.2.tgz"
+  "homepage": "https://github.com/UncleYuan/ak-vue-components#readme" 
 }

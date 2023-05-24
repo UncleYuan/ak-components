@@ -1,6 +1,6 @@
 <template>
   <div class="top-nav">
-    <div class="log" :style="{backgroundImage:`url(${globalSetting.publicPath}/images/logo.png)`}">ak-components文档中心</div>
+    <div class="log" :style="{backgroundImage:`url(${globalSetting.publicPath}/images/logo.png)`}">ak-vue-components文档中心</div>
     <HamBurger v-if="!sidebar.hide" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
     <div style="display:none;">
       <el-menu
