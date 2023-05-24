@@ -171,7 +171,7 @@ export default {
 
       if (Table.props[setPropKey]) {
         filterTableProps[setPropKey] = this.$attrs[key];
-      } else if (Pagination.props[setPropKey]) {
+      } else if (AkPagination.props[setPropKey]) {
         filterPaginationProps[setPropKey] = this.$attrs[key];
       }
     });

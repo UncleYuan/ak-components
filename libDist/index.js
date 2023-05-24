@@ -4395,7 +4395,7 @@ var cloneDeep_default = /*#__PURE__*/__webpack_require__.n(cloneDeep);
       }).join('');
       if (external_commonjs_element_ui_commonjs2_element_ui_amd_element_ui_root_elementUi_["Table"].props[setPropKey]) {
         filterTableProps[setPropKey] = this.$attrs[key];
-      } else if (Pagination.props[setPropKey]) {
+      } else if (AkPagination.props[setPropKey]) {
         filterPaginationProps[setPropKey] = this.$attrs[key];
       }
     });
