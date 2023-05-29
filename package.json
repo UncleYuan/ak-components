@@ -1,6 +1,6 @@
 {
   "name": "ak-vue-components",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a vue  component frame",
   "scripts": {
     "serve": "vue-cli-service serve",

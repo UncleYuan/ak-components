@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <AkFileUpload v-model="files" />
     <ak-data-table
       ref="table"
       v-model="selections"
@@ -211,13 +212,15 @@
 </template>
 
 <script>
+import AkFileUpload from "./AkFileUpload.vue";
 export default {
   name: "Dashboard",
   components: {
-
+    AkFileUpload
   },
   data() {
     return {
+      files: [],
       listFetchUrl: '/liveProduct/admin/productCommission/page', // 列表请求地址
       productCommissionGetSetUpUrl:
           '/liveProduct/admin/productCommission/getSetUp', // 佣金配置回查url
