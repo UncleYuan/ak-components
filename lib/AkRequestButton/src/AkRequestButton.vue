@@ -1,6 +1,7 @@
 <script>
 import isArray from 'lodash/isArray';
-import {Button} from 'element-ui';
+import { Button } from 'element-ui';
+import lodashGet from "lodash/get";
 // 新增阿康请求按钮列表
 export default {
   name: 'AkRequestButton',
@@ -90,6 +91,13 @@ export default {
     responseDataFilter: {
       type: Function,
       default: (res) => res
+    },
+    /**
+     * 返回的数据地址
+     */
+    responseDataPath: {
+      type: String,
+      default: "data.data"
     }
   },
   data() {
@@ -163,7 +171,7 @@ export default {
           });
 
           r = this.responseAllDataFilter(r);
-          this.btnData = this.responseDataFilter(r.data.data);
+          this.btnData = this.responseDataFilter(lodashGet(r, this.responseDataPath));
           this.loading = false;
           this.$emit('loading-success', r, this.btnData);
         })

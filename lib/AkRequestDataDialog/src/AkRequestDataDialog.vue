@@ -1,6 +1,7 @@
 <script>
-import { Dialog, Drawer, Button, Message } from 'element-ui'
-import cloneDeep from 'lodash/cloneDeep'
+import { Dialog, Drawer, Button, Message } from 'element-ui';
+import cloneDeep from 'lodash/cloneDeep';
+import lodashGet from "lodash/get";
 // 新增阿康基础请求弹框
 export default {
   name: 'AkRequestDataDialog',
@@ -99,6 +100,13 @@ export default {
     responseDataFilter: {
       type: Function,
       default: (res) => res
+    },
+    /**
+     * 返回的数据地址
+     */
+    responseDataPath: {
+      type: String,
+      default: "data.data"
     }
   },
   data() {
@@ -106,8 +114,9 @@ export default {
       loading: false,
       dialogVisible: false,
       disabledSubmit: false,
+      openTitle: "",
       reponseData: {}
-    }
+    };
   },
   computed: {},
   watch: {},
@@ -117,155 +126,160 @@ export default {
   destroyed() {},
   methods: {
     warningTips(type) {
-      let tipText = ''
+      let tipText = '';
       switch (type) {
         case 'childrenFormUnFind':
-          tipText = '请设置好弹窗子组件'
-          break
+          tipText = '请设置好弹窗子组件';
+          break;
         case 'initFormDataUnSet':
-          tipText = `弹窗子组件的initFormData方法用于重置表单,参数(formData,tag)formData为表单值,tag为标记，用于区分新增或标记等等，如果不需要则重置表单则可以不声明`
+          tipText = `弹窗子组件的initFormData方法用于重置表单,参数(formData,tag)formData为表单值,tag为标记，用于区分新增或标记等等，如果不需要则重置表单则可以不声明`;
 
-          break
+          break;
         case 'submitFormUnSet':
           tipText = `请声明好弹窗子组件的submitForm方法用于提交表单,调用this.$emit('submit-form',formData)用于通知弹窗组件提交表单数据\n
           this.$emit('set-disabled-submit',true) 可以设置禁用或启用提交按钮
-          `
-          break
+          `;
+          break;
         case 'getFormDataUnSet':
-          tipText = `请声明好弹窗子组件的getFormData方法用于收集表单值,没有找到表单值会直接找到$refs.form的model`
-          break
+          tipText = `请声明好弹窗子组件的getFormData方法用于收集表单值,没有找到表单值会直接找到$refs.form的model`;
+          break;
       }
       if (tipText) {
-        console.warn(tipText)
+        console.warn(tipText);
       }
     },
     initHandle() {
-      this.handle = this.findFormFromChildren()
+      this.handle = this.findFormFromChildren();
       if (this.handle) {
-        this.handle.$off('submit-form', this.onHandleSubmitForm)
-        this.handle.$on('submit-form', this.onHandleSubmitForm)
+        this.handle.$off('submit-form', this.onHandleSubmitForm);
+        this.handle.$on('submit-form', this.onHandleSubmitForm);
         this.handle.$off(
           'set-disabled-submit',
           this.onHandleSetDisabledSubmitForm
-        )
+        );
         this.handle.$on(
           'set-disabled-submit',
           this.onHandleSetDisabledSubmitForm
-        )
+        );
       } else {
-        this.warningTips('childrenFormUnFind')
+        this.warningTips('childrenFormUnFind');
       }
     },
     findFormFromChildren() {
-      let findFormItem = null
-      const boxItem = this.$children.length > 0 ? this.$children[0] : null
+      let findFormItem = null;
+      const boxItem = this.$children.length > 0 ? this.$children[0] : null;
       boxItem &&
         boxItem.$children.map((childrenItem) => {
           if (!childrenItem.$attrs['data-button-type'] && !findFormItem) {
             // 查找正确子组件
-            findFormItem = childrenItem
+            findFormItem = childrenItem;
           }
-        })
-      return findFormItem
+        });
+      return findFormItem;
     },
     onHandleSetDisabledSubmitForm(disabled) {
-      this.disabledSubmit = disabled
+      this.disabledSubmit = disabled;
     },
     onHandleSubmitForm(params) {
-      const submitData = cloneDeep(params)
-      this.submitFetch(submitData)
+      const submitData = cloneDeep(params);
+      this.submitFetch(submitData);
     },
     submitFetch(params = {}) {
-      if (!this.requestApi) return console.log('请配置正确的requestApi')
+      if (!this.requestApi) return console.log('请配置正确的requestApi');
 
-      this.loading = true
+      this.loading = true;
       const requestData = this.requestDataFilter({
         ...params,
         ...this.requestData
-      })
-      this.$emit('before-submit', requestData)
+      });
+      this.$emit('before-submit', requestData);
       this.requestApi(requestData)
         .then((r) => {
-          r = this.responseAllDataFilter(r)
-          this.reponseData = this.responseDataFilter(r.data.data)
-          this.loading = false
+          r = this.responseAllDataFilter(r);
+          this.reponseData = this.responseDataFilter(lodashGet(r, this.responseDataPath));
+          this.loading = false;
           if (this.closeDialogOnSubmitSuccess) {
-            this.dialogVisible = false
+            this.dialogVisible = false;
           }
           Message({
             type: 'success',
             message: r.data.message
-          })
-          this.$emit('submit-success', r, this.reponseData)
+          });
+          this.$emit('submit-success', r, this.reponseData);
         })
         .catch((e) => {
-          this.reponseData = {}
+          this.reponseData = {};
 
-          this.loading = false
+          this.loading = false;
           Message({
             type: 'error',
             message: e.message || e || '提交错误'
-          })
-          this.$emit('submit-error', e, this.reponseData)
-        })
+          });
+          this.$emit('submit-error', e, this.reponseData);
+        });
     },
-    open(data = {}, tag = '') {
-      this.dialogVisible = true
+    open(data = {}, tag = '', openTitle) {
+      this.openTitle = openTitle;
+      this.dialogVisible = true;
       this.$nextTick(() => {
-        this.initHandle()
+        this.initHandle();
 
         if (!this.handle) {
-          this.warningTips('childrenFormUnFind')
-          return
+          this.warningTips('childrenFormUnFind');
+          return;
         }
 
         if (typeof this.handle.initFormData != 'function') {
-          this.warningTips('initFormDataUnSet')
-          return
+          this.warningTips('initFormDataUnSet');
+          return;
         }
-        this.handle.initFormData(cloneDeep(data), tag)
-      })
+        this.handle.initFormData(cloneDeep(data), tag);
+      });
     },
     close() {
-      this.dialogVisible = false
+      this.openTitle = "";
+      this.dialogVisible = false;
+      if (this.handle && this.handle.$refs.form) {
+        this.handle.$refs.form.clearValidate();
+      }
     },
     submitForm() {
       if (!this.handle) {
-        this.warningTips('childrenFormUnFind')
-        return
+        this.warningTips('childrenFormUnFind');
+        return;
       }
       if (typeof this.handle.submitForm != 'function') {
-        this.warningTips('submitFormUnSet')
+        this.warningTips('submitFormUnSet');
 
-        return
+        return;
       }
-      this.handle.submitForm()
+      this.handle.submitForm();
     },
     getSubmitFormData() {
       if (!this.handle) {
-        this.warningTips('childrenFormUnFind')
+        this.warningTips('childrenFormUnFind');
       }
       if (typeof this.handle.getFormData != 'function') {
-        this.warningTips('getFormDataUnSet')
+        this.warningTips('getFormDataUnSet');
         if (this.handle.$refs.form && this.handle.$refs.form.model) {
           return cloneDeep(
             this.handle.getFormData(this.handle.$refs.form.model)
-          )
+          );
         }
-        return
+        return;
       }
-      return cloneDeep(this.handle.getFormData())
+      return cloneDeep(this.handle.getFormData());
     },
     cancelSubmitForm() {
-      this.close()
+      this.close();
     },
     setFirstStrToUpperCase(str) {
-      return str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()
+      return str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase();
     }
   },
   render() {
-    const filterDialogProps = {}
-    const ShowComponent = this.dialogType == 'dialog' ? Dialog : Drawer
+    const filterDialogProps = {};
+    const ShowComponent = this.dialogType == 'dialog' ? Dialog : Drawer;
     // 筛选出table支持的属性
     Object.keys(this.$attrs).map((key) => {
       const setPropKey = key
@@ -273,21 +287,23 @@ export default {
         .map((splitKey, splitIdx) => {
           return splitIdx > 0 && splitKey[0]
             ? this.setFirstStrToUpperCase(splitKey)
-            : splitKey
+            : splitKey;
         })
-        .join('')
+        .join('');
 
       if (ShowComponent.props[setPropKey]) {
-        filterDialogProps[setPropKey] = this.$attrs[key]
+        filterDialogProps[setPropKey] = this.$attrs[key];
       }
-    })
-    const btnScopedSlots = [] // 收集按钮作用与插槽
+    });
+    const btnScopedSlots = []; // 收集按钮作用与插槽
     Object.keys(this.$scopedSlots).map((scopedSlotKey) => {
       if (scopedSlotKey.indexOf('slotBtn') == 0) {
-        btnScopedSlots.push(this.$scopedSlots[scopedSlotKey])
+        btnScopedSlots.push(this.$scopedSlots[scopedSlotKey]);
       }
-    })
-
+    });
+    const setOpenTitleObject = this.openTitle ? {
+      title: this.openTitle
+    } : {}; // 是否设置openTitle
     return (
       <ShowComponent
         {...{
@@ -300,6 +316,7 @@ export default {
               ? this.dialogProps
               : this.drawerProps),
             ...filterDialogProps,
+            ...setOpenTitleObject,
             visible: this.dialogVisible
           },
           on: {
@@ -370,13 +387,13 @@ export default {
               cancelSubmitForm: this.cancelSubmitForm,
               getSubmitFormData: this.getSubmitFormData,
               disabledSubmit: this.disabledSubmit
-            })
+            });
           })}
         </div>
       </ShowComponent>
-    )
+    );
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
