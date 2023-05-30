@@ -115,6 +115,7 @@ export default {
       dialogVisible: false,
       disabledSubmit: false,
       openTitle: "",
+      openRequestApi: null,
       reponseData: {}
     };
   },
@@ -185,7 +186,8 @@ export default {
       this.submitFetch(submitData);
     },
     submitFetch(params = {}) {
-      if (!this.requestApi) return console.log('请配置正确的requestApi');
+      const setRquestApi = this.openRequestApi || this.requestApi;
+      if (!setRquestApi) return console.log('请配置正确的requestApi');
 
       this.loading = true;
       const requestData = this.requestDataFilter({
@@ -193,7 +195,8 @@ export default {
         ...this.requestData
       });
       this.$emit('before-submit', requestData);
-      this.requestApi(requestData)
+
+      setRquestApi(requestData)
         .then((r) => {
           r = this.responseAllDataFilter(r);
           this.reponseData = this.responseDataFilter(lodashGet(r, this.responseDataPath));
@@ -218,8 +221,9 @@ export default {
           this.$emit('submit-error', e, this.reponseData);
         });
     },
-    open(data = {}, tag = '', openTitle) {
+    open(data = {}, tag = '', openTitle = "", openRequestApi = null) {
       this.openTitle = openTitle;
+      this.openRequestApi = openRequestApi;
       this.dialogVisible = true;
       this.$nextTick(() => {
         this.initHandle();
@@ -238,6 +242,7 @@ export default {
     },
     close() {
       this.openTitle = "";
+      this.openRequestApi = null;
       this.dialogVisible = false;
       if (this.handle && this.handle.$refs.form) {
         this.handle.$refs.form.clearValidate();
