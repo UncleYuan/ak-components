@@ -1519,7 +1519,7 @@ ___CSS_LOADER_EXPORT___.push([module.i, ".pagination-container.hidden[data-v-372
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_5_2_7_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_5_2_7_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".drawer-footer[data-v-0ffa4a26]{position:absolute;bottom:0;height:60px;padding:10px 20px;background-color:#fff;border-top:1px solid #dcdfe6;padding:10px;text-align:center;left:0;right:0}.content-body[data-v-0ffa4a26]{padding:20px 20px}\n", "",{"version":3,"sources":["webpack://./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue"],"names":[],"mappings":"AACA,gCACE,iBAAkB,CAClB,QAAS,CAET,WAAY,CACZ,iBAAkB,CAClB,qBAAsB,CACtB,4BAA6B,CAC7B,YAAa,CACb,iBAAkB,CAClB,MAAO,CACP,OAAQ,CACT,+BAEC,iBAAkB","sourcesContent":["\n.drawer-footer {\n  position: absolute;\n  bottom: 0;\n\n  height: 60px;\n  padding: 10px 20px;\n  background-color: #fff;\n  border-top: 1px solid #dcdfe6;\n  padding: 10px;\n  text-align: center;\n  left: 0;\n  right: 0;\n}\n.content-body {\n  padding: 20px 20px;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, ".drawer-footer[data-v-4c085e31]{position:absolute;bottom:0;height:60px;padding:10px 20px;background-color:#fff;border-top:1px solid #dcdfe6;padding:10px;text-align:center;left:0;right:0}.content-body[data-v-4c085e31]{padding:20px 20px}\n", "",{"version":3,"sources":["webpack://./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue"],"names":[],"mappings":"AACA,gCACE,iBAAkB,CAClB,QAAS,CAET,WAAY,CACZ,iBAAkB,CAClB,qBAAsB,CACtB,4BAA6B,CAC7B,YAAa,CACb,iBAAkB,CAClB,MAAO,CACP,OAAQ,CACT,+BAEC,iBAAkB","sourcesContent":["\n.drawer-footer {\n  position: absolute;\n  bottom: 0;\n\n  height: 60px;\n  padding: 10px 20px;\n  background-color: #fff;\n  border-top: 1px solid #dcdfe6;\n  padding: 10px;\n  text-align: center;\n  left: 0;\n  right: 0;\n}\n.content-body {\n  padding: 20px 20px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["a"] = (___CSS_LOADER_EXPORT___);
 
@@ -6777,6 +6777,7 @@ var es_array_push = __webpack_require__(164);
       dialogVisible: false,
       disabledSubmit: false,
       openTitle: "",
+      openTag: "",
       openRequestApi: null,
       reponseData: {}
     };
@@ -6840,12 +6841,13 @@ var es_array_push = __webpack_require__(164);
     },
     submitFetch(params = {}) {
       const setRquestApi = this.openRequestApi || this.requestApi;
-      if (!setRquestApi) return console.log('请配置正确的requestApi');
-      this.loading = true;
       const requestData = this.requestDataFilter({
         ...params,
         ...this.requestData
       });
+      this.$emit('submit-data', requestData);
+      if (!setRquestApi) return console.log('请配置正确的requestApi');
+      this.loading = true;
       this.$emit('before-submit', requestData);
       setRquestApi(requestData).then(r => {
         r = this.responseAllDataFilter(r);
@@ -6871,6 +6873,7 @@ var es_array_push = __webpack_require__(164);
     },
     open(data = {}, tag = '', openTitle = "", openRequestApi = null) {
       this.openTitle = openTitle;
+      this.openTag = tag;
       this.openRequestApi = openRequestApi;
       this.dialogVisible = true;
       this.$nextTick(() => {
@@ -6888,6 +6891,7 @@ var es_array_push = __webpack_require__(164);
     },
     close() {
       this.openTitle = "";
+      this.openTag = "";
       this.openRequestApi = null;
       this.dialogVisible = false;
       if (this.handle && this.handle.$refs.form) {
@@ -7020,43 +7024,43 @@ var es_array_push = __webpack_require__(164);
 });
 // CONCATENATED MODULE: ./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_AkRequestDataDialogvue_type_script_lang_js_ = (AkRequestDataDialogvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=0&id=0ffa4a26&prod&lang=scss&scoped=true&
-var AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_ = __webpack_require__(43);
+// EXTERNAL MODULE: ./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=0&id=4c085e31&prod&lang=scss&scoped=true&
+var AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_ = __webpack_require__(43);
 
-// CONCATENATED MODULE: ./node_modules/_style-loader@2.0.0@style-loader/dist/cjs.js!./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=0&id=0ffa4a26&prod&lang=scss&scoped=true&
-
-            
-
-var AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_options = {};
-
-AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_options.insert = "head";
-AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_options.singleton = false;
-
-var AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_update = injectStylesIntoStyleTag_default()(AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_["a" /* default */], AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_options);
-
-
-
-/* harmony default export */ var src_AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_ = (AkRequestDataDialogvue_type_style_index_0_id_0ffa4a26_prod_lang_scss_scoped_true_["a" /* default */].locals || {});
-// CONCATENATED MODULE: ./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=0&id=0ffa4a26&prod&lang=scss&scoped=true&
-
-// EXTERNAL MODULE: ./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=1&id=0ffa4a26&prod&lang=scss&
-var AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_ = __webpack_require__(44);
-
-// CONCATENATED MODULE: ./node_modules/_style-loader@2.0.0@style-loader/dist/cjs.js!./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=1&id=0ffa4a26&prod&lang=scss&
+// CONCATENATED MODULE: ./node_modules/_style-loader@2.0.0@style-loader/dist/cjs.js!./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=0&id=4c085e31&prod&lang=scss&scoped=true&
 
             
 
-var AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_options = {};
+var AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_options = {};
 
-AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_options.insert = "head";
-AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_options.singleton = false;
+AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_options.insert = "head";
+AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_options.singleton = false;
 
-var AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_update = injectStylesIntoStyleTag_default()(AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_["a" /* default */], AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_options);
+var AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_update = injectStylesIntoStyleTag_default()(AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_["a" /* default */], AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_options);
 
 
 
-/* harmony default export */ var src_AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_ = (AkRequestDataDialogvue_type_style_index_1_id_0ffa4a26_prod_lang_scss_["a" /* default */].locals || {});
-// CONCATENATED MODULE: ./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=1&id=0ffa4a26&prod&lang=scss&
+/* harmony default export */ var src_AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_ = (AkRequestDataDialogvue_type_style_index_0_id_4c085e31_prod_lang_scss_scoped_true_["a" /* default */].locals || {});
+// CONCATENATED MODULE: ./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=0&id=4c085e31&prod&lang=scss&scoped=true&
+
+// EXTERNAL MODULE: ./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=1&id=4c085e31&prod&lang=scss&
+var AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_ = __webpack_require__(44);
+
+// CONCATENATED MODULE: ./node_modules/_style-loader@2.0.0@style-loader/dist/cjs.js!./node_modules/_css-loader@5.2.7@css-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib/loaders/stylePostLoader.js!./node_modules/_sass-loader@10.4.1@sass-loader/dist/cjs.js!./node_modules/_vue-loader@15.10.1@vue-loader/lib??vue-loader-options!./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=1&id=4c085e31&prod&lang=scss&
+
+            
+
+var AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_options = {};
+
+AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_options.insert = "head";
+AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_options.singleton = false;
+
+var AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_update = injectStylesIntoStyleTag_default()(AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_["a" /* default */], AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_options);
+
+
+
+/* harmony default export */ var src_AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_ = (AkRequestDataDialogvue_type_style_index_1_id_4c085e31_prod_lang_scss_["a" /* default */].locals || {});
+// CONCATENATED MODULE: ./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue?vue&type=style&index=1&id=4c085e31&prod&lang=scss&
 
 // CONCATENATED MODULE: ./lib/AkRequestDataDialog/src/AkRequestDataDialog.vue
 var AkRequestDataDialog_render, AkRequestDataDialog_staticRenderFns
@@ -7074,7 +7078,7 @@ var AkRequestDataDialog_component = normalizeComponent(
   AkRequestDataDialog_staticRenderFns,
   false,
   null,
-  "0ffa4a26",
+  "4c085e31",
   null
   
 )

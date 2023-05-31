@@ -115,6 +115,7 @@ export default {
       dialogVisible: false,
       disabledSubmit: false,
       openTitle: "",
+      openTag: "",
       openRequestApi: null,
       reponseData: {}
     };
@@ -187,13 +188,15 @@ export default {
     },
     submitFetch(params = {}) {
       const setRquestApi = this.openRequestApi || this.requestApi;
-      if (!setRquestApi) return console.log('请配置正确的requestApi');
-
-      this.loading = true;
       const requestData = this.requestDataFilter({
         ...params,
         ...this.requestData
       });
+      this.$emit('submit-data', requestData);
+      if (!setRquestApi) return console.log('请配置正确的requestApi');
+
+      this.loading = true;
+
       this.$emit('before-submit', requestData);
 
       setRquestApi(requestData)
@@ -223,6 +226,7 @@ export default {
     },
     open(data = {}, tag = '', openTitle = "", openRequestApi = null) {
       this.openTitle = openTitle;
+      this.openTag = tag;
       this.openRequestApi = openRequestApi;
       this.dialogVisible = true;
       this.$nextTick(() => {
@@ -242,6 +246,7 @@ export default {
     },
     close() {
       this.openTitle = "";
+      this.openTag = "";
       this.openRequestApi = null;
       this.dialogVisible = false;
       if (this.handle && this.handle.$refs.form) {
