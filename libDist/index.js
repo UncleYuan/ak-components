@@ -7465,7 +7465,7 @@ var es_array_reduce = __webpack_require__(201);
         this.cacheRequestData = requestData;
         this.requestApi(requestData).then(r => {
           r = this.responseAllDataFilter(r);
-          const setOptions = this.responseDataFilter(get_default()(r, this.responseRecordsDataPath));
+          const setOptions = this.responseDataFilter(get_default()(r, this.responseDataPath));
           this.options = isArray_default()(setOptions) ? setOptions : [];
           this.optionsLoading = false;
           this.$emit("loading-success", r, this.options);
