@@ -16,6 +16,13 @@ export default {
       default: 'drawer' // drawer  弹框或侧边栏类型
     },
     /**
+     * 弹框的时候是否深拷贝数据
+     */
+    openToCloneDeepData: {
+      type: Boolean,
+      default: true
+    },
+    /**
      * 弹框的props设置
      */
     dialogProps: {
@@ -186,6 +193,9 @@ export default {
       const submitData = cloneDeep(params);
       this.submitFetch(submitData);
     },
+    cloneData(data) {
+      return this.openToCloneDeepData ? cloneDeep(data) : data;
+    },
     submitFetch(params = {}) {
       const setRquestApi = this.openRequestApi || this.requestApi;
       const requestData = this.requestDataFilter({
@@ -193,7 +203,7 @@ export default {
         ...this.requestData
       });
       this.$emit('submit-data', requestData);
-      if (!setRquestApi) return console.log('请配置正确的requestApi');
+      if (!setRquestApi) return;
 
       this.loading = true;
 
@@ -241,7 +251,7 @@ export default {
           this.warningTips('initFormDataUnSet');
           return;
         }
-        this.handle.initFormData(cloneDeep(data), tag);
+        this.handle.initFormData(this.cloneData(data), tag);
       });
     },
     close() {
