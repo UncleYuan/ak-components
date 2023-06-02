@@ -11,6 +11,7 @@ export default {
     event: 'btn-data-change' // 当组件的值发生改变时要emit的事件名
   },
   props: {
+
     // 默认按钮带的值（预留属性）
     propData: {
       type: Object,
@@ -164,7 +165,9 @@ export default {
 
           try {
             successMsg = r.data.message || this.$t('tips.updateSuccess');
-          } catch (e) {}
+          } catch (e) {
+            console.log(e);
+          }
           this.$message({
             message: successMsg,
             type: 'success'
