@@ -215,7 +215,7 @@ export default {
           this.reponseData = this.responseDataFilter(lodashGet(r, this.responseDataPath));
           this.loading = false;
           if (this.closeDialogOnSubmitSuccess) {
-            this.dialogVisible = false;
+            this.close();
           }
           Message({
             type: 'success',
